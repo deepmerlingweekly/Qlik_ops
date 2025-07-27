@@ -1,0 +1,17 @@
+[project]
+name = "qlil-ops"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic>=0.59.0",
+    "boto3>=1.39.14",
+    "duckduckgo-search>=8.1.1",
+    "httpx>=0.28.1",
+    "mcp[cli]>=1.12.2",
+    "ollama>=0.5.1",
+    "python-dotenv>=1.1.1",
+    "streamlit>=1.47.1",
+    "torch>=2.7.1",
+]
