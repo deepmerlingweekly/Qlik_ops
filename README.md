@@ -11,7 +11,7 @@ refers to https://docs.astral.sh/uv/getting-started/installation/
 https://github.com/deepmerlingweekly/Qlik_ops.git
 
 ## run application from Qlik_ops.py folder
-### the fist time uv will install all dependencies
+##### the fist time uv will install all dependencies
 
 uv run streamlit run .\Qlik_ops.py
 
