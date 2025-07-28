@@ -1,4 +1,4 @@
-# prerequisite
+# Requirements
 python 3.10 or higher
 uv
 
@@ -17,4 +17,4 @@ uv run streamlit run .\Qlik_ops.py
 
 ## enjoy
 
-![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![alt text](https://github.com/deepmerlingweekly/Qlik_ops/blob/main/space_everywhere.png?raw=true)
