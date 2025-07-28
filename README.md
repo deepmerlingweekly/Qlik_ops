@@ -4,17 +4,20 @@ uv
 
 # Setup
 
-## Install uv
+## 1) Install uv
 refers to https://docs.astral.sh/uv/getting-started/installation/
 
-## Clone repo
+## 2) Clone repo
 https://github.com/deepmerlingweekly/Qlik_ops.git
 
-## run application from Qlik_ops.py folder
+## 3) Rename .env_test to .env and set variables values
+
+
+## 4) run application from Qlik_ops.py folder
 ##### the fist time uv will install all dependencies
 
 uv run streamlit run .\Qlik_ops.py
 
-## enjoy
+## 5) enjoy
 
 ![alt text](https://github.com/deepmerlingweekly/Qlik_ops/blob/main/space_everywhere.png?raw=true)
