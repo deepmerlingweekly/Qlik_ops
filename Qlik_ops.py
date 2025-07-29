@@ -8,7 +8,7 @@ def main():
     st.sidebar.title("Navigation")
     st.sidebar.write("Select a page to manage spaces, groups")  
     st.sidebar.write("Currently, the utility supports space management, group management")
-
+    st.image("space_everywhere.png")
 
 if __name__ == "__main__":
     main()

@@ -63,13 +63,13 @@ def print_creating_space():
 def create_space_from_list(space_list):
     #app_logger.info(space_list)
     for space in space_list:
-        app_logger.info(space)
+        print(space)
         try:
             res=backend.create_qlik_space(st.session_state.environment,space)
             col2.write("spazio {} creato".format(res['name']))
         except Exception as e:
              print(e)
-    app_logger.info("--------------------------------------")
+    print("--------------------------------------")
 
 environment = col1.toggle("PROD")
 dominio = col1.text_area("Dominio",st.session_state.dominio,help="con 'dominio applicativo' si intende un gruppo di app Qlik Sense che nel loro insieme costituiscono un dominio di analisi (dati comuni, use case comune, stesso 'dominio progettuale', stesso team business di riferimento")
