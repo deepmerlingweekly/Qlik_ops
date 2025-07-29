@@ -8,7 +8,7 @@ import time
 
 load_dotenv()
 
-def create_qlik_space(environment,space):
+def create_qlik_space(environment,space,domain):
     #app_logger.info(space)
     if environment=='prod':
         tenant=os.getenv('prod_tenant')
@@ -48,10 +48,6 @@ def tenant_default_assignment(environment,spaceid):
     }
     endpoint="{}/api/v1/spaces".format(tenant)
     assignment_endpoint="{}/{}/assignments".format(endpoint,spaceid)
-    print(assigneeId_tenant_admin)
-    print(tenant)
-    print(os.getenv('test_assigneeId_tenant_admin'))
-    print(assignment_endpoint)
     assignment_payload={"type":"group","roles":["consumer","facilitator"],"assigneeId":assigneeId_tenant_admin}
     print(assignment_payload)
     try:
@@ -60,6 +56,45 @@ def tenant_default_assignment(environment,spaceid):
         #return json.loads(r.text)
     except Exception as e:
         print(e)
+
+
+"""
+curl "https://your-tenant.us.qlikcloud.com/api/v1/groups" \
+-X POST \
+-H "Content-type: application/json" \
+-H "Authorization: Bearer <access_token>" \
+-d '{"name":"Development","status":"active","assignedRoles":[{"name":"Developer"}]}'
+"""
+def default_group_creation(environment,domain,categories):
+    if environment=='prod':
+        tenant=os.getenv('prod_tenant')
+        api_key=os.getenv('prod_api_key')
+        
+    if environment=='test':
+        tenant=os.getenv('test_tenant')
+        api_key=os.getenv('test_api_key')
+        
+    headers={
+        "Authorization": "Bearer {}".format(api_key),
+        "Content-Type": "application/json"
+    }
+    endpoint="{}/api/v1/groups".format(tenant)
+
+    
+    
+    payload_consumers={"payload":{"name":domain+" - Developers","status":"active","assignedRoles":[]},"category":"consumers"}
+    payload_testers={"payload":{"name":domain+" - Testers","status":"active","assignedRoles":[]},"category":"testers"}
+    payload_developers={"payload":{"name":domain+" - Consumer","status":"active","assignedRoles":[]},"category":"developers"}
+
+    try:
+        r = requests.post(endpoint,headers=headers,json=payload)
+        print(json.loads(r.text))
+        return json.loads(r.text)
+    except Exception as e:
+        print(e)
+        
+
+
 
 
 def list_spaces(environment):
