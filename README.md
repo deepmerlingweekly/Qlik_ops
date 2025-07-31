@@ -10,7 +10,7 @@ refers to https://docs.astral.sh/uv/getting-started/installation/
 ## 2) Clone repo
 https://github.com/deepmerlingweekly/Qlik_ops.git
 
-## 3) Rename .env_test to .env and set variables values
+## 3) Rename .env_sample to .env and set variables values
 
 
 ## 4) run application from Qlik_ops.py folder
