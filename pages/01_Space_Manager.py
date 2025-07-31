@@ -105,7 +105,7 @@ if not dev:
 
 if dev_backend:
     if st.session_state.dominio != "":
-            st.session_state.space_dev_backend={"name":"{} - DEV BACKEND".format(st.session_state.dominio),"type":"shared","description":""}
+            st.session_state.space_dev_backend={"name":"{} - DEV - BACKEND".format(st.session_state.dominio),"type":"shared","description":""}
     else:
         st.warning('Attenzione, l\' dominio deve essere valorizzato', icon="⚠️")
 if not dev_backend:
@@ -113,7 +113,7 @@ if not dev_backend:
 
 if dev_shared:
     if st.session_state.dominio != "":
-            st.session_state.space_dev_shared={"name":"{} - DEV SHARED".format(st.session_state.dominio),"type":"shared","description":""}
+            st.session_state.space_dev_shared={"name":"{} - DEV - SHARED DATA".format(st.session_state.dominio),"type":"shared","description":""}
     else:
         st.warning('Attenzione, l\' dominio deve essere valorizzato', icon="⚠️")
 if not dev_shared:
@@ -130,7 +130,7 @@ if not test:
 
 if test_backend:
     if st.session_state.dominio != "":
-            st.session_state.space_test_backend={"name":"{} - TEST BACKEND".format(st.session_state.dominio),"type":"managed","description":""}
+            st.session_state.space_test_backend={"name":"{} - TEST - BACKEND".format(st.session_state.dominio),"type":"managed","description":""}
     else:
         st.warning('Attenzione, l\' dominio deve essere valorizzato', icon="⚠️")
 if not test_backend:
@@ -138,7 +138,7 @@ if not test_backend:
 
 if test_shared:
     if st.session_state.dominio != "":
-            st.session_state.space_test_shared={"name":"{} - TEST SHARED".format(st.session_state.dominio),"type":"managed","description":""}
+            st.session_state.space_test_shared={"name":"{} - TEST - SHARED DATA".format(st.session_state.dominio),"type":"managed","description":""}
     else:
         st.warning('Attenzione, l\' dominio deve essere valorizzato', icon="⚠️")
 if not test_shared:
@@ -163,7 +163,7 @@ if not prod_backend:
 
 if prod_shared:
     if st.session_state.dominio != "":
-            st.session_state.space_prod_shared={"name":"{} - SHARED".format(st.session_state.dominio),"type":"managed","description":""}
+            st.session_state.space_prod_shared={"name":"{} - SHARED DATA".format(st.session_state.dominio),"type":"managed","description":""}
     else:
         st.warning('Attenzione, l\' dominio deve essere valorizzato', icon="⚠️")
 if not prod_shared:

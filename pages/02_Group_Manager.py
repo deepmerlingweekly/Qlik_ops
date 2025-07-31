@@ -45,5 +45,7 @@ with st.form("my_form"):
         if checkbox_developer:
             st.session_state.group_cat.append('Developer')
         st.write("saranno creati i seguenti gruppi:")
-        for categories in st.session_state.group_cat:
-            st.write(st.session_state.dominio_group+" - "+categories)
+        print(st.session_state.group_cat)
+        for category in st.session_state.group_cat:
+            st.write(st.session_state.dominio_group+" - "+category)
+            backend.default_group_creation(st.session_state.environment_group,st.session_state.dominio_group,category)
