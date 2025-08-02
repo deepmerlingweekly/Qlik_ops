@@ -27,6 +27,6 @@ jobs:
     - run: npm install
     - run: npm run dump
     - run: npm run app:dist -- --win --x64
-    with:
-      github_token: ${{ secrets.github_token }}
-      release: ${{ startsWith(github.ref, 'refs/tags/v') }}
+      with:
+        github_token: ${{ secrets.github_token }}
+        release: ${{ startsWith(github.ref, 'refs/tags/v') }}
