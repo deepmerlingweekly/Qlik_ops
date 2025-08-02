@@ -27,6 +27,11 @@ jobs:
     - run: npm install
     - run: npm run dump
     - run: npm run app:dist -- --win --x64
+    - name: Create release
+      uses: softprops/action-gh-release@v2
       with:
-        github_token: ${{ secrets.github_token }}
-        release: ${{ startsWith(github.ref, 'refs/tags/v') }}
+        tag_name: ${{ github.ref_name }}
+        name: Release ${{ github.ref_name }}
+        files: dist/**  
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
