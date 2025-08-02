@@ -26,4 +26,4 @@ jobs:
         cache: 'npm'
     - run: npm install
     - run: npm run dump
-    - run: run app:dist -- --win --x64
+    - run: npm run app:dist -- --win --x64
