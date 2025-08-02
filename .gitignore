@@ -1,2 +1,17 @@
 .env
 .venv
+build/*
+dist/*
+node_modules/*
+*.egg-info/*
+*.pyc
+__pycache__/*
+*.log
+*.sqlite3
+*.db
+*.env
+*.DS_Store
+*.swp
+*.swo
+*.bak
+*.tmp
