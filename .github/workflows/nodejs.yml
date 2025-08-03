@@ -5,7 +5,7 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "main" ]
     
 jobs:
   build:
@@ -32,4 +32,4 @@ jobs:
       with:
         tag_name: ${{ github.ref_name }}
         name: Release ${{ github.ref_name }}
-        files: dist/qlik-ops 0.1.0.exe
+        files: dist/qlik-ops_${{ github.ref_name }}.exe
