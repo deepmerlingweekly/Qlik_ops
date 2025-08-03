@@ -16,11 +16,11 @@ if 'group_cat' not in st.session_state:
 # with col2:
 #      container = st.container(border=True,height=650)
 
-# environment_group = col1.toggle("PROD")
-# if environment_group:
-#     st.session_state.environment_group = 'prod'
-# else:
-#     st.session_state.environment_group = 'test'
+environment_group = st.toggle("PROD",help="Indica in quale Tenant (Prod/Test) eseguire la creazione. Default è test")
+if environment_group:
+    st.session_state.environment_group = 'prod'
+else:
+    st.session_state.environment_group = 'test'
 
 # if col1.button("Visualizza Spazi",type="primary"):
 #     current_space=backend.list_spaces(st.session_state.environment_group)

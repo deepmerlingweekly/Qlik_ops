@@ -9,7 +9,6 @@ __pycache__/*
 *.log
 *.sqlite3
 *.db
-*.env
 *.DS_Store
 *.swp
 *.swo

@@ -6,7 +6,7 @@ import logging
 from logging import getLogger
 import time
 
-load_dotenv()
+load_dotenv('/mnt/.env')
 
 def create_qlik_space(environment,space,domain):
     #app_logger.info(space)
