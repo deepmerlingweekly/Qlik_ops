@@ -1,6 +1,8 @@
 import streamlit as st
 import os
 from dotenv import load_dotenv
+from sqlalchemy import text
+from sqlalchemy import insert
 load_dotenv('/mnt/.env')
 
 def main():
@@ -18,5 +20,17 @@ def main():
     st.sidebar.write(os.getenv('test_api_key'))
     st.sidebar.write(os.getenv('prod_api_key'))
 
+    # Create the SQL connection to pets_db as specified in your secrets file.
+    conn = st.connection('qlik_ops_db', type='sql')
+
+    # Insert some data with conn.session.
+    with conn.session as s:
+        s.execute(text('CREATE TABLE IF NOT EXISTS settings (id TEXT, tenant TEXT, environment TEXT, apikey TEXT);'))
+        s.execute(insert(settings).values(id="John Doe", tenant="HR", environment=75000,apikey="test2"))
+        s.commit()
+
+    # Query and display the data you inserted
+    settings_conn=conn.query('select * from settings')
+    st.dataframe(settings_conn)
 if __name__ == "__main__":
     main()
