@@ -26,7 +26,8 @@ def main():
     # Insert some data with conn.session.
     with conn.session as s:
         s.execute(text('CREATE TABLE IF NOT EXISTS settings (id TEXT, tenant TEXT, environment TEXT, apikey TEXT);'))
-        s.execute(insert(settings).values(id="John Doe", tenant="HR", environment=75000,apikey="test2"))
+        s.execute("""INSERT INTO settings(id,tenant,environment,apikey) VALUES (?,?)""", ("01", "mediaset.eu.qlikcloud.com","apikey"))
+        s.execute("""INSERT INTO settings(id,tenant,environment,apikey) VALUES (?,?)""", ("02", "mediaset-test.eu.qlikcloud.com","apikey"))
         s.commit()
 
     # Query and display the data you inserted
