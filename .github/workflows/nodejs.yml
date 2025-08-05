@@ -32,4 +32,4 @@ jobs:
       with:
         tag_name: ${{ github.ref_name }}
         name: Release ${{ github.ref_name }}
-        files: dist/qlik-ops-0.1.0-win.zip
+        files: dist/qlik-ops-${{ github.ref_name }}-win.zip
