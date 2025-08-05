@@ -1,6 +1,6 @@
 {
   "name": "qlik-ops",
-  "version": "0.1.1",
+  "version": "v0.1.2",
   "main": "./build/electron/main.js",
   "scripts": {
     "dump": "dump-stlite-desktop-artifacts",
