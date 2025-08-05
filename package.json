@@ -15,7 +15,7 @@
       "buildResources": "assets"
     },
     "win": {
-            "target": ["portable"]
+            "target": ["zip"]
         }
   },
   "devDependencies": {
