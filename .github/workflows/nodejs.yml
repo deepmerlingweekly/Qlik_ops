@@ -29,6 +29,13 @@ jobs:
     - run: npm install
     - run: npm run dump
     - run: npm run app:dist
+    - run: |
+        TAG=${{ github.ref_name }}
+        VERSION=${TAG#v}
+        FILE=dist/qlik-ops-${VERSION}-win.zip
+        RENAMED=dist/qlik-ops-${TAG}-win.zip
+        echo "Rinominando $FILE in $RENAMED"
+        mv "$FILE" "$RENAMED"
     - name: Create release
       uses: softprops/action-gh-release@v2
       with:
