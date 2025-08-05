@@ -29,10 +29,8 @@ jobs:
     - run: npm install
     - run: npm run dump
     - run: npm run app:dist
-    - name: setVar
-      run: TAG=${{ github.ref_name }}
-      run: echo "VERSION=${TAG#v}" >> $GITHUB_ENV
-
+    - run: TAG=${{ github.ref_name }}
+    - run: echo "VERSION=${TAG#v}" >> $GITHUB_ENV
     - name: Create release
       uses: softprops/action-gh-release@v2
       with:
