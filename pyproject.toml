@@ -12,6 +12,7 @@ dependencies = [
     "mcp[cli]>=1.12.2",
     "ollama>=0.5.1",
     "python-dotenv>=1.1.1",
+    "sqlalchemy>=2.0.42",
     "streamlit>=1.47.1",
     "torch>=2.7.1",
 ]

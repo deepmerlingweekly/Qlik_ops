@@ -5,17 +5,50 @@ import os
 import logging
 from logging import getLogger
 import time
+import sqlite3
 
-load_dotenv('/mnt/.env')
+#load_dotenv('/mnt/.env')
+
+def get_apikey(env):
+    con = sqlite3.connect("qlik_ops.db")
+    cur = con.cursor()
+    res = cur.execute('select apikey from settings where environment="{}"'.format(env))
+    apikey=res.fetchall()[0][0]
+    return apikey
+
+def get_tenant(env):
+    con = sqlite3.connect("qlik_ops.db")
+    cur = con.cursor()
+    res = cur.execute('select tenant from settings where environment="{}"'.format(env))
+    tenant=res.fetchall()[0][0]
+    return tenant
+
+def get_assigneeId_tenant_admin(env):
+    con = sqlite3.connect("qlik_ops.db")
+    cur = con.cursor()
+    res = cur.execute('select assigneeId_tenant_admin from settings where environment="{}"'.format(env))
+    assigneeId_tenant_admin=res.fetchall()[0][0]
+    return assigneeId_tenant_admin
+
+def show_current_settings():
+    con = sqlite3.connect("qlik_ops.db")
+    cur = con.cursor()
+    res = cur.execute('select * from settings')
+    currents_settings=res.fetchall()
+    return currents_settings
+
 
 def create_qlik_space(environment,space,domain):
     #app_logger.info(space)
-    if environment=='prod':
-        tenant=os.getenv('prod_tenant')
-        api_key=os.getenv('prod_api_key')
-    if environment=='test':
-        tenant=os.getenv('test_tenant')
-        api_key=os.getenv('test_api_key')
+    api_key=get_apikey(environment)
+    tenant=get_tenant(environment)
+    assigneeId_tenant_admin=get_assigneeId_tenant_admin(environment)
+    # if environment=='prod':
+    #     tenant=os.getenv('prod_tenant')
+    #     api_key=os.getenv('prod_api_key')
+    # if environment=='test':
+    #     tenant=os.getenv('test_tenant')
+    #     api_key=os.getenv('test_api_key')
         
     endpoint="{}/api/v1/spaces".format(tenant)
     headers={
@@ -34,14 +67,9 @@ def create_qlik_space(environment,space,domain):
         print(e)
 
 def tenant_default_assignment(environment,spaceid):
-    if environment=='prod':
-        tenant=os.getenv('prod_tenant')
-        api_key=os.getenv('prod_api_key')
-        assigneeId_tenant_admin=os.getenv('prod_assigneeId_tenant_admin')
-    if environment=='test':
-        tenant=os.getenv('test_tenant')
-        api_key=os.getenv('test_api_key')
-        assigneeId_tenant_admin=os.getenv('test_assigneeId_tenant_admin')
+    api_key=get_apikey(environment)
+    tenant=get_tenant(environment)
+    assigneeId_tenant_admin=get_assigneeId_tenant_admin(environment)
     headers={
         "Authorization": "Bearer {}".format(api_key),
         "Content-Type": "application/json"
@@ -57,23 +85,12 @@ def tenant_default_assignment(environment,spaceid):
     except Exception as e:
         print(e)
 
-"""
-curl "https://your-tenant.us.qlikcloud.com/api/v1/groups" \
--X POST \
--H "Content-type: application/json" \
--H "Authorization: Bearer <access_token>" \
--d '{"name":"Development","status":"active","assignedRoles":[{"name":"Developer"}]}'
-"""
+
 def default_group_creation(environment,domain,category):
     print("#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+")
     print("start default group creation")
-    if environment=='prod':
-        tenant=os.getenv('prod_tenant')
-        api_key=os.getenv('prod_api_key')
-        
-    if environment=='test':
-        tenant=os.getenv('test_tenant')
-        api_key=os.getenv('test_api_key')
+    api_key=get_apikey(environment)
+    tenant=get_tenant(environment)
         
     headers={
         "Authorization": "Bearer {}".format(api_key),
@@ -107,13 +124,8 @@ def default_group_creation(environment,domain,category):
 def assign_group(environment,domain,group_name,group_id):
     print("{},{},{},{}".format(environment,domain,group_name,group_id))
     
-    if environment=='prod':
-        tenant=os.getenv('prod_tenant')
-        api_key=os.getenv('prod_api_key')
-        
-    if environment=='test':
-        tenant=os.getenv('test_tenant')
-        api_key=os.getenv('test_api_key')
+    api_key=get_apikey(environment)
+    tenant=get_tenant(environment)
         
     headers={
         "Authorization": "Bearer {}".format(api_key),
@@ -231,12 +243,8 @@ def assign_group(environment,domain,group_name,group_id):
 
 def list_spaces(environment):
     print("----------------------------------------")
-    if environment=='prod':
-        tenant=os.getenv('prod_tenant')
-        api_key=os.getenv('prod_api_key')
-    if environment=='test':
-        tenant=os.getenv('test_tenant')
-        api_key=os.getenv('test_api_key')
+    api_key=get_apikey(environment)
+    tenant=get_tenant(environment)
     headers={
         "Authorization": "Bearer {}".format(api_key),
         "Content-Type": "application/json"

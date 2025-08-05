@@ -1,6 +1,6 @@
 {
   "name": "qlik-ops",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./build/electron/main.js",
   "scripts": {
     "dump": "dump-stlite-desktop-artifacts",
@@ -15,7 +15,7 @@
       "buildResources": "assets"
     },
     "win": {
-            "target": ["portable"]
+            "target": ["zip"]
         }
   },
   "devDependencies": {
@@ -26,9 +26,9 @@
   },
   "stlite": {
     "desktop": {
-      "files": ["app.py","pages/*.py","backend.py","space_everywhere.png"],
+      "files": ["app.py","pages/*.py","backend.py","space_everywhere.png",".streamlit/secrets.toml"],
       "entrypoint": "app.py",
-      "dependencies": ["requests", "dotenv"],
+      "dependencies": ["requests", "dotenv","sqlalchemy"],
       "nodeJsWorker": true,
       "nodefsMountpoints": {
         "/mnt": "."
