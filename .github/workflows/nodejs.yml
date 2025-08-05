@@ -5,7 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "main","dev" ]
+    #branches: [ "main","dev" ]
+    tags:
+      - 'v*'
     
 jobs:
   build:
@@ -27,9 +29,13 @@ jobs:
     - run: npm install
     - run: npm run dump
     - run: npm run app:dist
+    - run: |
+        $TAG = "${{ github.ref_name }}"
+        $VERSION = $TAG -replace "^v", ""
+        echo "VERSION=$VERSION" >> $env:GITHUB_ENV
     - name: Create release
       uses: softprops/action-gh-release@v2
       with:
         tag_name: ${{ github.ref_name }}
         name: Release ${{ github.ref_name }}
-        files: dist/qlik-ops-0.1.0-win.zip
+        files: dist/qlik-ops-${{ env.VERSION}}-win.zip
