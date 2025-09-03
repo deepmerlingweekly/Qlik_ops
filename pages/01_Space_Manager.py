@@ -69,6 +69,7 @@ def create_space_from_list(space_list):
             col2.write("spazio {} creato".format(res['name']))
         except Exception as e:
              print(e)
+             st.error(e)
     print("--------------------------------------")
 
 environment = col1.toggle("PROD",help="Indica in quale Tenant (Prod/Test) eseguire la creazione. Default è test")
