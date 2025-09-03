@@ -70,7 +70,7 @@ def create_space_from_list(space_list):
         except Exception as e:
              print(e)
              st.error(e)
-    print("--------------------------------------")
+    print("---------------------------------------")
 
 environment = col1.toggle("PROD",help="Indica in quale Tenant (Prod/Test) eseguire la creazione. Default è test")
 dominio = col1.text_area("Dominio",st.session_state.dominio,help="con 'dominio applicativo' si intende un gruppo di app Qlik Sense che nel loro insieme costituiscono un dominio di analisi (dati comuni, use case comune, stesso 'dominio progettuale', stesso team business di riferimento")
