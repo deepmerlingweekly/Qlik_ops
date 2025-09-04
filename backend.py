@@ -9,20 +9,6 @@ import sqlite3
 
 #load_dotenv('/mnt/.env')
 
-logging.basicConfig(
-    filename="app.log",
-    level=logging.DEBUG,
-    format="%(asctime)s - %(levelname)s - %(message)s"
-)
-
-logging.info("Backend avviato")
-# try:
-#     # qui la tua logica Streamlit o backend
-# except Exception as e:
-#     logging.exception("Errore nel backend")
-#     sys.exit(1)
-
-
 def get_apikey(env):
     con = sqlite3.connect("qlik_ops.db")
     cur = con.cursor()
@@ -76,7 +62,6 @@ def create_qlik_space(environment,space):
         tenant_default_assignment(environment,id)
         return json.loads(r.text)
     except Exception as e:
-        logging.exception(e)
         print('error')
         print(e)
 
@@ -97,7 +82,6 @@ def tenant_default_assignment(environment,spaceid):
         print(json.loads(r.text))
         #return json.loads(r.text)
     except Exception as e:
-        logging.exception(e)
         print(e)
 
 
