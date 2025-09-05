@@ -79,4 +79,4 @@ jobs:
       with:
         tag_name: ${{ env.VERSION }}
         name: Release ${{ env.VERSION }}
-        files: dist/StreamlitElectronApp-${{ env.VERSION}}-win.zip
+        files: dist/Qlik-ops-${{ env.VERSION}}-win.zip
