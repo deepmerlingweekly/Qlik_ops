@@ -41,7 +41,6 @@ jobs:
 
     # Install Node deps
     - run: npm install
-    - run: npm run dump
     - run: npm run app:dist
 
     # Workaround per evitare symlink su Windows
