@@ -47,7 +47,7 @@ function startPython() {
     '-m', 'streamlit', 'run', streamlitScript,
     '--server.port', '8501',
     '--server.headless', 'true'
-  ], { shell: true });
+  ]);
 
   pyProc.stdout.on('data', (data) => log(`STDOUT: ${data}`));
   pyProc.stderr.on('data', (data) => log(`STDERR: ${data}`));
@@ -61,7 +61,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
-    webPreferences: { devTools: true } // abilita devtools
+    webPreferences: { devTools: false } // abilita devtools
   });
 
   mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
@@ -72,8 +72,6 @@ function createWindow() {
 }
 
 app.on('ready', async () => {
-  console.log(`Python exe path: ${pythonExe}`);
-  console.log(`Streamlit script path: ${streamlitScript}`);
   startPython();
   log('Attendo che Streamlit sia pronto su http://localhost:8501 ...');
   try {
