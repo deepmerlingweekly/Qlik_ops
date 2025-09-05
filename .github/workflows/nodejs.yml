@@ -2,10 +2,10 @@ name: Build Electron + Streamlit (Windows)
 
 on:
   push:
-    branches: ["dev"]
+    branches: ["dev" ]
     tags:
       - 'v*'
-
+    
 jobs:
   build:
     permissions: write-all
@@ -16,23 +16,23 @@ jobs:
         node-version: [20.x]
 
     steps:
-    # 1️⃣ Checkout del codice
+    # Checkout del codice
     - uses: actions/checkout@v4
 
-    # 2️⃣ Setup Node.js
+    # Setup Node.js
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
-    # 3️⃣ Setup Python
+    # Setup Python
     - name: Setup Python
       uses: actions/setup-python@v4
       with:
         python-version: 3.12
 
-    # 4️⃣ Crea e popola il venv Python
+    # Install Python deps in virtualenv
     - name: Install Python dependencies
       run: |
         python -m venv python_qlik
@@ -40,28 +40,43 @@ jobs:
         pip install --upgrade pip
         pip install -r requirements.txt
 
-    # 5️⃣ Install Node.js dependencies
+    # Install Node deps
     - run: npm ci
 
-    # 6️⃣ Disabilita symlink su Windows (workaround)
+    # Workaround per evitare symlink su Windows
     - name: Disable symlinks
       run: setx npm_config_symlink false
 
-    # 7️⃣ Calcola versione dinamica in Python
-    - name: Set version dynamically
-      run: |
-        python update_version.py
+    # Step custom del progetto
 
-    # 8️⃣ Build Electron per Windows
-    - name: Build Electron app
-      run: npm run build:win
+
+    # Calcolo versione dinamica
+    - name: Set version
+      run: |
+        if ("${{ github.ref_name }}" -eq "dev") {
+          $VERSION = "0.1.0-dev.${{ github.run_number }}"
+        } elseif ("${{ github.ref_name }}" -eq "main") {
+          $VERSION = "1.0.0"
+        } elseif (startsWith("${{ github.ref_name }}", "v")) {
+          $TAG = "${{ github.ref_name }}"
+          $VERSION = $TAG -replace "^v", ""
+        } else {
+          $VERSION = "0.1.0-${{ github.run_number }}"
+        }
+
+        echo "VERSION=$VERSION" >> $env:GITHUB_ENV
+    # Aggiorna package.json usando Python
+    - name: Update package.json version
+      run: python update_version.py
+    # Build app
+    - run: npm run build:win
       env:
         PATH: python_qlik\Scripts;%PATH%
 
-    # 9️⃣ Crea release GitHub
+    # Creazione release sempre
     - name: Create release
       uses: softprops/action-gh-release@v2
       with:
         tag_name: ${{ env.VERSION }}
         name: Release ${{ env.VERSION }}
-        files: dist/Qlik-ops-${{ env.VERSION }}-win.zip
+        files: dist/StreamlitElectronApp-${{ env.VERSION}}-win.zip
