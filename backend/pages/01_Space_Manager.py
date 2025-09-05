@@ -65,7 +65,10 @@ def create_space_from_list(space_list):
     for space in space_list:
         print(space)
         try:
+            st.write(st.session_state.environment)
+            st.write(space)
             res=backend.create_qlik_space(st.session_state.environment,space)
+            st.write(res)
             col2.write("spazio {} creato".format(res['name']))
         except Exception as e:
              print(e)

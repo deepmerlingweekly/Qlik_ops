@@ -64,6 +64,7 @@ def create_qlik_space(environment,space):
     except Exception as e:
         print('error')
         print(e)
+        return(e)
 
 def tenant_default_assignment(environment,spaceid):
     api_key=get_apikey(environment)
