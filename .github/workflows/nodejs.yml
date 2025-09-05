@@ -65,17 +65,9 @@ jobs:
         }
 
         echo "VERSION=$VERSION" >> $env:GITHUB_ENV
-
-        # Aggiorna package.json
-        $content = Get-Content package.json
-        $content = $content | ForEach-Object {
-            if ($_ -match '"version"\s*:\s*".*?"') {
-                '"version": "' + $env:VERSION + '",'
-            } else {
-                $_
-            }
-        }
-        Set-Content package.json -Value $content
+    # Aggiorna package.json usando Python
+    - name: Update package.json version
+      run: python update_version.py
     # Build app
     - run: npm run build:win
       env:
