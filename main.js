@@ -36,6 +36,7 @@ function startPython() {
 
   if (process.platform === 'win32') {
     pythonExe = path.join(resourcesPath, 'python_qlik', 'Scripts', 'python.exe');
+    console.log(`Python exe path: ${pythonExe}`);
   } else {
     pythonExe = path.join(resourcesPath, 'python_qlik', 'bin', 'python3');
   }
@@ -46,7 +47,7 @@ function startPython() {
     '-m', 'streamlit', 'run', streamlitScript,
     '--server.port', '8501',
     '--server.headless', 'true'
-  ]);
+  ], { shell: true });
 
   pyProc.stdout.on('data', (data) => log(`STDOUT: ${data}`));
   pyProc.stderr.on('data', (data) => log(`STDERR: ${data}`));
@@ -71,6 +72,8 @@ function createWindow() {
 }
 
 app.on('ready', async () => {
+  console.log(`Python exe path: ${pythonExe}`);
+  console.log(`Streamlit script path: ${streamlitScript}`);
   startPython();
   log('Attendo che Streamlit sia pronto su http://localhost:8501 ...');
   try {
