@@ -48,9 +48,6 @@ jobs:
       run: setx npm_config_symlink false
 
     # Step custom del progetto
-    - run: npm run dump
-      env:
-        PATH: python_qlik\Scripts;%PATH%
 
     - run: npm run app:dist
       env:
