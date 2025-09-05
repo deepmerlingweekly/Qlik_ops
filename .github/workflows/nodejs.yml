@@ -67,9 +67,9 @@ jobs:
         echo "VERSION=$VERSION" >> $env:GITHUB_ENV
 
         # Aggiorna package.json
-        (Get-Content package.json) `
-          -replace '"version":\s*".*?"', '"version": "' + $VERSION + '"' `
-          | Set-Content package.json
+        (Get-Content package.json) -Raw |
+          ForEach-Object { $_ -replace '"version":\s*".*?"', '"version": "' + $env:VERSION + '"' } |
+          Set-Content package.json
     # Build app
     - run: npm run build:win
       env:
