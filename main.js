@@ -31,14 +31,18 @@ function waitForServer(url, timeout = 30000) {
 // Avvia Python + Streamlit
 function startPython() {
   const isDev = !app.isPackaged;
-  const resourcesPath = isDev ? __dirname : process.resourcesPath;
+  //const resourcesPath = isDev ? __dirname : process.resourcesPath;
+  const resourcesPath = isDev ? __dirname : __dirname;
+  log(__dirname)
+  log(process.resourcesPath)
   let pythonExe;
 
   if (process.platform === 'win32') {
     pythonExe = path.join(resourcesPath, 'python_qlik', 'Scripts', 'python.exe');
-    console.log(`Python exe path: ${pythonExe}`);
+    log(`Python exe path: ${pythonExe}`);
   } else {
     pythonExe = path.join(resourcesPath, 'python_qlik', 'bin', 'python3');
+    log(`Python exe path: ${pythonExe}`);
   }
 
   const streamlitScript = path.join(resourcesPath, 'backend', 'app.py');
