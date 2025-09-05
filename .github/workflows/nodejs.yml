@@ -2,6 +2,7 @@ name: Build Electron + Streamlit (Windows)
 
 on:
   push:
+    branches: ["dev" ]
     tags:
       - 'v*'
     
@@ -45,10 +46,6 @@ jobs:
     # Workaround per evitare symlink su Windows
     - name: Disable symlinks
       run: setx npm_config_symlink false
-
-    # Pulizia cache electron-builder
-    - name: Clear electron-builder cache
-      run: rmdir /s /q "%LOCALAPPDATA%\electron-builder\Cache" || echo "No cache to remove"
 
     # Step custom del progetto
     - run: npm run dump
