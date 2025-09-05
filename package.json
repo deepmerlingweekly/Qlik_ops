@@ -9,8 +9,8 @@
     "app:dist": "electron-builder"
   },
   "build": {
-    "appId": "com.example.streamlitelectron",
-    "productName": "StreamlitElectronApp",
+    "appId": "com.example.qlik-ops",
+    "productName": "Qlik-ops",
     "files": [
       "main.js",
       "backend/**/*",
