@@ -32,7 +32,7 @@ function waitForServer(url, timeout = 30000) {
 function startPython() {
   const isDev = !app.isPackaged;
   //const resourcesPath = isDev ? __dirname : process.resourcesPath;
-  const resourcesPath = isDev ? __dirname : __dirname;
+  const resourcesPath = isDev ? __dirname : process.resourcesPath;
   log(__dirname)
   log(process.resourcesPath)
   let pythonExe;
