@@ -56,13 +56,19 @@ jobs:
     # Calcolo versione
     - name: Set version
       run: |
-        if ("${{ github.ref_name }}" -eq "main") {
-          $VERSION = "0.1.${{ github.run_number }}"
+        if ("${{ github.ref_name }}" -eq "dev") {
+          $VERSION = "1.0.0-dev.${{ github.run_number }}"
         } else {
           $TAG = "${{ github.ref_name }}"
           $VERSION = $TAG -replace "^v", ""
         }
+        echo "VERSION=$VERSION"
         echo "VERSION=$VERSION" >> $env:GITHUB_ENV
+
+        # aggiorna package.json con la nuova versione
+        (Get-Content package.json) `
+          -replace '"version":\s*".*?"', '"version": "' + $VERSION + '"' `
+          | Set-Content package.json
 
     # Creazione release
     - name: Create release
