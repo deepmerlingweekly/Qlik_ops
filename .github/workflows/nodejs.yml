@@ -70,9 +70,6 @@ jobs:
       run: python update_version.py
     # Build app
     - run: npm run build:win
-      env:
-        PATH: python_qlik\Scripts;%PATH%
-
     # Creazione release sempre
     - name: Create release
       uses: softprops/action-gh-release@v2
