@@ -21,6 +21,11 @@
         "from": "python_qlik/",
         "to": "python_qlik",
         "filter": ["**/*"]
+      },
+      {
+        "from": "backend/",
+        "to": "backend",
+        "filter": ["**/*"]
       }
     ],
     "directories": {
