@@ -2,6 +2,7 @@
 .venv
 build/*
 dist/*
+python_qlik/*
 node_modules/*
 *.egg-info/*
 *.pyc

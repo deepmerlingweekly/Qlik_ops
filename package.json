@@ -1,38 +1,34 @@
 {
-  "name": "qlik-ops",
-  "version": "0.1.11",
-  "main": "./build/electron/main.js",
+  "name": "streamlit-electron-app",
+  "version": "1.0.0",
+  "main": "main.js",
   "scripts": {
-    "dump": "dump-stlite-desktop-artifacts",
-    "serve": "cross-env NODE_ENV=production electron .",
-    "app:dir": "electron-builder --dir",
-    "app:dist": "electron-builder",
-    "postinstall": "electron-builder install-app-deps"
+    "dev": "electron .",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win"
   },
   "build": {
-    "files": ["build/**/*"],
+    "appId": "com.example.streamlitelectron",
+    "productName": "StreamlitElectronApp",
+    "files": [
+      "main.js",
+      "backend/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "python_qlik/",
+        "to": "python_qlik",
+        "filter": ["**/*"]
+      }
+    ],
     "directories": {
-      "buildResources": "assets"
+      "output": "dist"
     },
-    "win": {
-            "target": ["zip"]
-        }
+    "win": { "target": "zip" }
   },
   "devDependencies": {
-    "@stlite/desktop": "^0.79.5",
-    "cross-env": "^7.0.3",
-    "electron": "34.3.0",
-    "electron-builder": "^25.1.8"
-  },
-  "stlite": {
-    "desktop": {
-      "files": ["app.py","pages/*.py","backend.py","space_everywhere.png",".streamlit/secrets.toml"],
-      "entrypoint": "app.py",
-      "dependencies": ["requests", "dotenv","sqlalchemy"],
-      "nodeJsWorker": true,
-      "nodefsMountpoints": {
-        "/mnt": "."
-      }
-    }
+    "electron": "^31.0.0",
+    "electron-builder": "^25.0.0"
   }
 }

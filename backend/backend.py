@@ -38,11 +38,10 @@ def show_current_settings():
     return currents_settings
 
 
-def create_qlik_space(environment,space,domain):
+def create_qlik_space(environment,space):
     #app_logger.info(space)
     api_key=get_apikey(environment)
     tenant=get_tenant(environment)
-    assigneeId_tenant_admin=get_assigneeId_tenant_admin(environment)
     # if environment=='prod':
     #     tenant=os.getenv('prod_tenant')
     #     api_key=os.getenv('prod_api_key')
@@ -65,6 +64,7 @@ def create_qlik_space(environment,space,domain):
     except Exception as e:
         print('error')
         print(e)
+        return(e)
 
 def tenant_default_assignment(environment,spaceid):
     api_key=get_apikey(environment)
