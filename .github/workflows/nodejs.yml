@@ -70,10 +70,19 @@ jobs:
           -replace '"version":\s*".*?"', '"version": "' + $VERSION + '"' `
           | Set-Content package.json
 
-    # Creazione release
+    # Upload artifact se branch dev
+    - name: Upload dev artifact
+      if: github.ref_name == 'dev'
+      uses: actions/upload-artifact@v4
+      with:
+        name: qlik-ops-${{ env.VERSION }}-win
+        path: dist/qlik-ops-${{ env.VERSION}}-win.zip
+
+    # Creazione release solo se tag
     - name: Create release
+      if: startsWith(github.ref, 'refs/tags/')
       uses: softprops/action-gh-release@v2
       with:
         tag_name: ${{ github.ref_name }}
-        name: Release ${{ github.ref_name }}
+        name: Release ${{ env.VERSION }}
         files: dist/qlik-ops-${{ env.VERSION}}-win.zip
