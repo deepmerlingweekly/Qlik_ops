@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "electron .",
     "build": "electron-builder",
-    "build:win": "electron-builder --win"
+    "build:win": "electron-builder --win",
+    "app:dist": "electron-builder"
   },
   "build": {
     "appId": "com.example.streamlitelectron",
