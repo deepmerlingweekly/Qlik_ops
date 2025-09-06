@@ -37,9 +37,9 @@ function startPython() {
   let pythonExe;
 
   if (process.platform === 'win32') {
-    pythonExe = path.join(resourcesPath, 'python_qlik', 'Scripts', 'python.exe');
+    pythonExe = path.join(resourcesPath, 'python_embedded', 'python.exe');
   } else {
-    pythonExe = path.join(resourcesPath, 'python_qlik', 'bin', 'python3');
+    pythonExe = path.join(resourcesPath, 'python_embedded', 'bin', 'python3');
   }
   const streamlitScript = path.join(resourcesPath, 'backend', 'app.py');
   log(`chosen python: ${pythonExe}`);
