@@ -28,7 +28,7 @@ jobs:
 
     # Setup Python
     - name: Setup Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: 3.12
 
@@ -36,11 +36,11 @@ jobs:
     - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install --target=python_qlik -r requirements.txt
+        python -m pip install --target=python_embedded/Lib/site-packages -r requirements.txt
 
-    # Install Node deps
-    - run: npm install
-    - run: npm run app:dist
+    # # Install Node deps
+    # - run: npm install
+    # - run: npm run app:dist
 
     # Workaround per evitare symlink su Windows
     - name: Disable symlinks

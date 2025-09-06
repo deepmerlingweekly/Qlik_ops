@@ -18,8 +18,8 @@
     ],
     "extraResources": [
       {
-        "from": "python_qlik/",
-        "to": "python_qlik",
+        "from": "python_embedded/",
+        "to": "python_embedded",
         "filter": ["**/*"]
       },
       {
