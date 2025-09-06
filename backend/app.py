@@ -15,7 +15,7 @@ def main():
     st.sidebar.title("Navigation")
     st.sidebar.write("Select a page to manage spaces, groups")  
     st.sidebar.write("Currently, the utility supports space management, group management")
-    st.image("space_everywhere.png")
+    st.image("resources\\backend\\space_everywhere.png")
     container = st.container(border=True)
     con = sqlite3.connect("qlik_ops.db")
     cur = con.cursor()
