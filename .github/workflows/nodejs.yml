@@ -35,8 +35,8 @@ jobs:
     # Install Python deps in virtualenv
     - name: Install Python dependencies
       run: |
-        python -m pip install --upgrade pip
-        python -m pip install --target=python_embedded/Lib/site-packages -r requirements.txt
+        python -m pip install --upgrade pip wheel setuptools
+        python -m pip install --only-binary=:all: --target=python_embedded/Lib/site-packages -r requirements.txt
 
     # # Install Node deps
     - run: npm install
