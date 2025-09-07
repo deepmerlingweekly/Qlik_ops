@@ -17,8 +17,11 @@
 ## DEV
 
 python -m venv python_qlik
+
 \python_qlik\Scripts\activate
+
 pip install streamlit dotenv requests sqlalchemy
 
 npm install
-rpm run app:dist
+
+rpm run dev
