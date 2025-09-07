@@ -1,15 +1,16 @@
 {
-  "name": "streamlit-electron-app",
+  "name": "Qlik-ops",
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
     "dev": "electron .",
     "build": "electron-builder",
-    "build:win": "electron-builder --win"
+    "build:win": "electron-builder --win",
+    "app:dist": "electron-builder"
   },
   "build": {
-    "appId": "com.example.streamlitelectron",
-    "productName": "StreamlitElectronApp",
+    "appId": "com.example.qlik-ops",
+    "productName": "Qlik-ops",
     "files": [
       "main.js",
       "backend/**/*",
@@ -17,8 +18,13 @@
     ],
     "extraResources": [
       {
-        "from": "python_qlik/",
-        "to": "python_qlik",
+        "from": "python_embedded/",
+        "to": "python_embedded",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "backend/",
+        "to": "backend",
         "filter": ["**/*"]
       }
     ],
@@ -29,6 +35,6 @@
   },
   "devDependencies": {
     "electron": "^31.0.0",
-    "electron-builder": "^25.0.0"
+    "electron-builder": "^24.6.3"
   }
 }
