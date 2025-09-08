@@ -1,11 +1,6 @@
 {
-<<<<<<< HEAD
-  "name": "streamlit-electron-app",
-  "version": "1.0.1",
-=======
   "name": "Qlik-ops",
   "version": "1.0.0",
->>>>>>> 4d82690eec23c354478491d2308fe77d6ef046dd
   "main": "main.js",
   "scripts": {
     "dev": "electron .",
