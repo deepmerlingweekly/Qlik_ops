@@ -59,7 +59,7 @@ jobs:
           $VERSION = "0.1.0-dev.${{ github.run_number }}"
         } elseif ("${{ github.ref_name }}" -eq "main") {
           $VERSION = "1.0.0"
-        } elseif (startsWith("${{ github.ref_name }}", "v")) {
+        } elseif ("${{ github.ref_name }}".StartsWith("v")) {
           $TAG = "${{ github.ref_name }}"
           $VERSION = $TAG -replace "^v", ""
         } else {
