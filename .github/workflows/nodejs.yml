@@ -2,6 +2,7 @@ name: Build Electron + Streamlit (Windows)
 
 on:
   push:
+    branches: ["dev" ]
     tags:
       - 'v*'
     
@@ -29,51 +30,52 @@ jobs:
     - name: Setup Python
       uses: actions/setup-python@v4
       with:
-        python-version: 3.12
+        python-version: 3.13
 
     # Install Python deps in virtualenv
     - name: Install Python dependencies
       run: |
-        python -m venv python_qlik
-        python_qlik\Scripts\activate
-        pip install --upgrade pip
-        pip install -r requirements.txt
-
-    # Install Node deps
-    - run: npm ci
+        python -m pip install --upgrade pip wheel setuptools
+        python -m pip install --only-binary=:all: --target=python_embedded/Lib/site-packages -r requirements.txt
+    - name: Test embedded Python import
+      run: |
+        ./python_embedded/python.exe -c "import sys; print(sys.path)"
+        ./python_embedded/python.exe -c "import numpy; print('Numpy OK:', numpy.__version__)"
+    # # Install Node deps
+    - run: npm install
+    - run: npm run app:dist
 
     # Workaround per evitare symlink su Windows
     - name: Disable symlinks
       run: setx npm_config_symlink false
 
-    # Pulizia cache electron-builder
-    - name: Clear electron-builder cache
-      run: rmdir /s /q "%LOCALAPPDATA%\electron-builder\Cache" || echo "No cache to remove"
-
     # Step custom del progetto
-    - run: npm run dump
-      env:
-        PATH: python_qlik\Scripts;%PATH%
 
-    - run: npm run app:dist
-      env:
-        PATH: python_qlik\Scripts;%PATH%
 
-    # Calcolo versione
+    # Calcolo versione dinamica
     - name: Set version
       run: |
-        if ("${{ github.ref_name }}" -eq "main") {
-          $VERSION = "0.1.${{ github.run_number }}"
-        } else {
+        if ("${{ github.ref_name }}" -eq "dev") {
+          $VERSION = "0.1.0-dev.${{ github.run_number }}"
+        } elseif ("${{ github.ref_name }}" -eq "main") {
+          $VERSION = "1.0.0"
+        } elseif (startsWith("${{ github.ref_name }}", "v")) {
           $TAG = "${{ github.ref_name }}"
           $VERSION = $TAG -replace "^v", ""
+        } else {
+          $VERSION = "0.1.0-${{ github.run_number }}"
         }
-        echo "VERSION=$VERSION" >> $env:GITHUB_ENV
 
-    # Creazione release
+        echo "VERSION=$VERSION" >> $env:GITHUB_ENV
+    # Aggiorna package.json usando Python
+    - name: Update package.json version
+      run: python update_version.py
+    # Build app
+    - run: npm run build:win
+    # Creazione release sempre
     - name: Create release
       uses: softprops/action-gh-release@v2
       with:
-        tag_name: ${{ github.ref_name }}
-        name: Release ${{ github.ref_name }}
-        files: dist/qlik-ops-${{ env.VERSION}}-win.zip
+        tag_name: ${{ env.VERSION }}
+        name: Release ${{ env.VERSION }}
+        files: dist/Qlik-ops-${{ env.VERSION}}-win.zip
